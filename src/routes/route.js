@@ -1,4 +1,5 @@
 const express = require('express');
+const res = require('express/lib/response');
 const router = express.Router();
 
 // QUERY PARAMS
@@ -50,36 +51,46 @@ router.post("/post-query-2", function (req, res) {
 // also return an array consisting of only the person that can vote
 
 //  take this as sample for array of persons:
-// let persons= [
-//     {
-//     name: "PK",
-//     age: 10,
-//     votingStatus: false
-// },
-// {
-//     name: "SK",
-//     age: 20,
-//     votingStatus: false
-// },
-// {
-//     name: "AA",
-//     age: 70,
-//     votingStatus: false
-// },
-// {
-//     name: "SC",
-//     age: 5,
-//     votingStatus: false
-// },
-// {
-//     name: "HO",
-//     age: 40,
-//     votingStatus: false
-// }
-// ]
+let persons= [
+    {
+    name: "Moin",
+    age: 10,
+    votingStatus: false
+},
+{
+    name: "Atif",
+    age: 20,
+    votingStatus: false
+},
+{
+    name: "Modi",
+    age: 70,
+    votingStatus: false
+},
+{
+    name: "Rahul",
+    age: 5,
+    votingStatus: false
+},
+{
+    name: "Akhilash",
+    age: 40,
+    votingStatus: false
+}
+]
 
+router.post("/post-query-3", function(req,res){
+    let input = req.query.input;
+    let finalArray = [];
+for ( let i = 0; i < persons.length; i++){
+    if(persons[i].age>= input){
+        persons[i].votingStatus= true
+        finalArray.push(persons[i])
 
-
-
-
+    }
+}
+if (finalArray.length > 0){
+    return res.send(finalArray)
+}
+})
 module.exports = router;
